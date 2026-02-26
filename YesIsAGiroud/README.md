@@ -1,2 +1,0 @@
-My wallpapers
-Have fun
