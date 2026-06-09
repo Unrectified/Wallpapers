@@ -1,16 +1,26 @@
 #!/bin/bash
 
-# 1. On récupère juste le nom du fichier (ex: castle-of-shadows) sans le chemin ni l'extension
-FILENAME=$(basename "$1" .mp4)
+INPUT="$1"
+FILENAME=$(basename "$INPUT" .mp4)
 OUTPUT_DIR="$HOME/Pictures/Wallpapers/gifs"
-
-# 2. On s'assure que le dossier de destination existe
 mkdir -p "$OUTPUT_DIR"
 
-# 3. Commande FFmpeg corrigée
-# Note : On utilise $HOME au lieu de ~ pour éviter les soucis de guillemets
-ffmpeg -i "$1" \
-    -vcodec libwebp \
-    -filter:v "fps=30,scale=1920:-1" \
-    -lossless 0 -compression_level 6 -q:v 75 -loop 0 -an \
-    "$OUTPUT_DIR/$FILENAME.gif"
+# CONFIGURATION OPTIMISÉE
+START_TIME="00:00:05" # Début à 5s (souvent mieux que le début noir)
+DURATION="6"          # 6 secondes de loop
+FPS="24"
+WIDTH="1280"
+
+FILTERS="fps=$FPS,scale=$WIDTH:-1:flags=lanczos"
+
+echo "Conversion de $FILENAME (Segment de ${DURATION}s)..."
+
+# Étape 1 : Générer la palette sur le segment précis
+ffmpeg -ss "$START_TIME" -t "$DURATION" -i "$INPUT" -vf "$FILTERS,palettegen" -y /tmp/palette.png
+
+# Étape 2 : Générer le GIF
+ffmpeg -ss "$START_TIME" -t "$DURATION" -i "$INPUT" -i /tmp/palette.png \
+    -lavfi "$FILTERS [x]; [x][1:v] paletteuse=dither=bayer:bayer_scale=3" \
+    -loop 0 -an "$OUTPUT_DIR/$FILENAME.gif"
+
+echo "Terminé ! Taille du fichier : $(du -h "$OUTPUT_DIR/$FILENAME.gif" | cut -f1)"
