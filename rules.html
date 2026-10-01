@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les règles | Wallpapers Gallery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #25233a;
+            display: flex;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+            max-width: 760px;
+            padding: 42px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #5141a3;
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            color: #66617b;
+            margin-bottom: 28px;
+        }
+
+        ol {
+            display: grid;
+            gap: 14px;
+            list-style: none;
+            counter-reset: rules;
+        }
+
+        li {
+            align-items: flex-start;
+            background: #f2f0ff;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            counter-increment: rules;
+            display: flex;
+            gap: 14px;
+            line-height: 1.5;
+            padding: 16px;
+        }
+
+        li::before {
+            color: #5141a3;
+            content: counter(rules, decimal-leading-zero);
+            font-weight: 700;
+        }
+
+        .back-link {
+            color: #5141a3;
+            display: inline-block;
+            font-weight: 600;
+            margin-top: 30px;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 520px) {
+            main {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>📜 Les règles</h1>
+        <p class="intro">Des règles parfaitement officielles, probablement.</p>
+        <ol>
+            <li>Tout wallpaper doit être admiré au moins trois secondes, même s'il est flou.</li>
+            <li>Les couchers de soleil sont limités à un par écran et par jour.</li>
+            <li>Un fond d'écran ne peut pas être changé avant d'avoir reçu un nom de code.</li>
+            <li>Les pixels solitaires doivent être accompagnés avec dignité.</li>
+            <li>Toute image contenant une lune gagne automatiquement 12 points de mystère.</li>
+            <li>Le wallpaper parfait n'existe pas, mais celui-ci est quand même très bien.</li>
+        </ol>
+        <a class="back-link" href="index.html">← Retour à la galerie</a>
+    </main>
+</body>
+</html>
